@@ -1,9 +1,10 @@
 package com.geekplus.rms.analysis.controller;
 
+import com.geekplus.rms.analysis.service.CommandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
 import io.swagger.annotations.ApiParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,23 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geekplus.rms.analysis.base.BaseResult;
-import com.geekplus.rms.analysis.service.impl.CommandServiceImpl;
 
+/**
+ * 接口文档自动生成 Controller
+ */
 @RestController
-@RequestMapping("/hello")
-@Api(tags = "首页")
+@RequestMapping("/apiDemo")
+@Api(value = "apiDemo", tags = "apiGenDemo")
 public class HelloController {
 
     @Autowired
-    private CommandServiceImpl commandService;
+    private CommandService commandService;
 
     /**
-     * 默认（无注解）
+     * GET 无参
      * @return
      */
+    @ApiOperation(value = "test(GET 无参)",notes = "test")
     @GetMapping("/test")
-    public String index() {
-        return "Greetings from Spring Boot!";
+    public BaseResult<String> index() {
+
+        return new BaseResult("Greetings from Spring Boot!");
     }
 
     /**
@@ -37,7 +42,7 @@ public class HelloController {
      * @param cmd
      * @return
      */
-    @ApiOperation(value = "execCmd",notes = "执行命令")
+    @ApiOperation(value = "execCmd(GET 单参)",notes = "执行命令")
     @GetMapping("/execCmd")
     public BaseResult<String> execCmd(@ApiParam(name = "cmd",value = "命令",required = true) @RequestParam(value = "cmd")String cmd){
 
@@ -52,7 +57,7 @@ public class HelloController {
      * @param age
      * @return
      */
-    @ApiOperation(value = "sayHi",notes="如来，到底来没来")
+    @ApiOperation(value = "sayHi(GET 多参数)",notes="如来，到底来没来")
     @GetMapping("/sayHi")
     public BaseResult<String> sayHi(@ApiParam(name = "name",value = "名称",required = true) @RequestParam(value = "name")String name,
                                         @ApiParam(name = "age",value = "年龄",required = true) @RequestParam(value = "age")Integer age){
@@ -64,7 +69,7 @@ public class HelloController {
      * @param file
      * @return
      */
-    @ApiOperation(value = "uploadFile", notes = "文件上传")
+    @ApiOperation(value = "uploadFile(POST form file)", notes = "文件上传")
     @PostMapping("/uploadFile")
     public BaseResult<String> uploadFile(@ApiParam(name = "myfile",value = "文件对象",required = true) @RequestParam(name = "myfile") MultipartFile file) {
 
