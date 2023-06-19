@@ -35,10 +35,10 @@ public class Knife4jConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("RMS Analysis API文档")
-                .description("RMS Analysis API文档")
+                .title("knife4j API文档")
+                .description("knife4j API文档")
                 .termsOfServiceUrl("http://xxxx:8086/rmsAnalysis/doc.html")
-                .contact(new Contact("geekplus", "https://www.geekplus.com", null))
+                .contact(new Contact("knife4j", "https://www.knife4j.com", null))
                 .version("1.0")
                 .build();
     }

@@ -30,8 +30,8 @@ public class HelloController {
      * GET 无参
      * @return
      */
-    @ApiOperation(value = "test(GET 无参)",notes = "test")
-    @GetMapping("/test")
+    @ApiOperation(value = "demo1(GET 无参)",notes = "demo1")
+    @GetMapping("/demo1")
     public BaseResult<String> index() {
 
         return new BaseResult("Greetings from Spring Boot!");
@@ -42,8 +42,8 @@ public class HelloController {
      * @param cmd
      * @return
      */
-    @ApiOperation(value = "execCmd(GET 单参)",notes = "执行命令")
-    @GetMapping("/execCmd")
+    @ApiOperation(value = "demo2(GET 单参)",notes = "执行命令")
+    @GetMapping("/demo2")
     public BaseResult<String> execCmd(@ApiParam(name = "cmd",value = "命令",required = true) @RequestParam(value = "cmd")String cmd){
 
         String result = commandService.executeCmd(cmd);
@@ -57,10 +57,10 @@ public class HelloController {
      * @param age
      * @return
      */
-    @ApiOperation(value = "sayHi(GET 多参数)",notes="如来，到底来没来")
-    @GetMapping("/sayHi")
+    @ApiOperation(value = "demo3(GET 多参数)",notes="如来，到底来没来")
+    @GetMapping("/demo3")
     public BaseResult<String> sayHi(@ApiParam(name = "name",value = "名称",required = true) @RequestParam(value = "name")String name,
-                                        @ApiParam(name = "age",value = "年龄",required = true) @RequestParam(value = "age")Integer age){
+                                    @ApiParam(name = "age",value = "年龄",required = true) @RequestParam(value = "age")Integer age){
         return new BaseResult("Hi:" + name + "--" + age);
     }
 
@@ -69,10 +69,11 @@ public class HelloController {
      * @param file
      * @return
      */
-    @ApiOperation(value = "uploadFile(POST form file)", notes = "文件上传")
-    @PostMapping("/uploadFile")
-    public BaseResult<String> uploadFile(@ApiParam(name = "myfile",value = "文件对象",required = true) @RequestParam(name = "myfile") MultipartFile file) {
+    @ApiOperation(value = "demo4(POST 表单)", notes = "文件上传")
+    @PostMapping("/demo4")
+    public BaseResult<String> uploadFile(@ApiParam(name = "name",value = "名称",required = true) @RequestParam(value = "name")String name,
+                                         @ApiParam(name = "myfile",value = "文件对象",required = true) @RequestParam(name = "myfile") MultipartFile file) {
 
-        return new BaseResult("上传成功:" + file.getOriginalFilename());
+        return new BaseResult("上传成功:" + file.getOriginalFilename() + "--" + name);
     }
 }
