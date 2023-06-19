@@ -7,6 +7,3 @@ server:
   port: 8086
   servlet:
     context-path: /rmsAnalysis
-
-
-rule.upload.path: /tmp/mizen/

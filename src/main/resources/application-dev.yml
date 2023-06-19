@@ -5,6 +5,6 @@ logging:
     console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger- %msg%n'
     file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger- %msg%n'
   file:
-    name: /var/log/geekplus/analysis/analysis.log
+    name: ./log/analysis/analysis.log
     max-size: 4096MB
     max-history: 7
