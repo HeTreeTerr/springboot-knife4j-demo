@@ -8,3 +8,7 @@ logging:
     name: ./log/analysis/analysis.log
     max-size: 4096MB
     max-history: 7
+
+knife4j:
+  #knife4j开关（true开 false关）
+  enable: true

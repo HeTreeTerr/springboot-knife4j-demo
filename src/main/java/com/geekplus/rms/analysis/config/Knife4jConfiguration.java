@@ -1,5 +1,6 @@
 package com.geekplus.rms.analysis.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableSwagger2WebMvc
+@ConditionalOnProperty(value = "knife4j.enable",havingValue = "true")
 public class Knife4jConfiguration {
 
     @Bean(value = "defaultApi2")
