@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,9 +29,9 @@ public class ExceptionHandle {
      */
     @ExceptionHandler({java.lang.Exception.class})
     @ResponseBody
-    public BaseResult<String> handle(Exception e) {
+    public BaseResult handle(Exception e) {
         log.error("接口错误",e);
-        return new BaseResult<String>().failure(StringUtils.isBlank(e.getMessage()) ? "接口错误。" : "接口错误，" + e.getMessage());
+        return new BaseResult().failure(StringUtils.isBlank(e.getMessage()) ? "接口错误。" : "接口错误，" + e.getMessage());
     }
 
     /**
@@ -40,12 +41,27 @@ public class ExceptionHandle {
      */
     @ExceptionHandler({BindException.class})
     @ResponseBody
-    public BaseResult<String> handle(BindException e) {
+    public BaseResult handle(BindException e) {
+        log.error("参数校验失败",e);
         String msg = "参数非法";
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
             msg = msg + "，" + error.getDefaultMessage();
         }
-        return new BaseResult<String>().failure(msg);
+        return new BaseResult().failure(msg);
+    }
+
+    /**
+     * 自定义验证异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public BaseResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("参数校验失败",e);
+        String msg = "参数非法";
+        for (FieldError error : e.getBindingResult().getFieldErrors()) {
+            msg = msg + "，" + error.getDefaultMessage();
+        }
+        return new BaseResult().failure(msg);
     }
 
 }

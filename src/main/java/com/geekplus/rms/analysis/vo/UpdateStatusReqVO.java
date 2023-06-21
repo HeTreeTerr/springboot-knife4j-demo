@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 /**
  * <p>
  * UpdateStatus 入参视图
@@ -23,8 +26,11 @@ import lombok.NoArgsConstructor;
 public class UpdateStatusReqVO {
 
     @ApiModelProperty(value = "主键id", name = "id", required = true, example = "15")
+    @NotNull(message = "id不能为空")
+    @Positive(message = "id必须大于0")
     private Long id;
 
-    @ApiModelProperty(value = "状态（0：oo 1:xx）", name = "status", required = true, example = "1")
+    @ApiModelProperty(value = "状态（1：oo 2:xx）", name = "status", required = true, example = "1")
+    @Positive(message = "状态必须大于0")
     private Integer status;
 }

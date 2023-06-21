@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.*;
 
 /**
  * <p>
@@ -23,9 +26,13 @@ import lombok.NoArgsConstructor;
 public class FindInfoReqVO {
 
     @ApiModelProperty(value = "名称", name = "name", required = true, example = "hss")
+    @NotBlank(message = "名称不能为空")
+    @Length(min = 5,max = 50,message = "名称长度限制5-50")
     private String name;
 
     @ApiModelProperty(value = "年龄", name = "age", required = true, example = "12")
+    @NotNull
+    @Positive(message = "年龄必须大于0")
     private Integer age;
 
 }
