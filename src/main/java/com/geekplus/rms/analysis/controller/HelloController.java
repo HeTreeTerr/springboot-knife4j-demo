@@ -1,16 +1,15 @@
 package com.geekplus.rms.analysis.controller;
 
 import com.geekplus.rms.analysis.service.CommandService;
+import com.geekplus.rms.analysis.vo.FindInfoReqVO;
+import com.geekplus.rms.analysis.vo.FindInfoResVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.geekplus.rms.analysis.base.BaseResult;
@@ -20,6 +19,7 @@ import com.geekplus.rms.analysis.base.BaseResult;
  */
 @RestController
 @RequestMapping("/apiDemo")
+@Slf4j
 @Api(value = "apiDemo", tags = "apiGenDemo")
 public class HelloController {
 
@@ -65,12 +65,28 @@ public class HelloController {
     }
 
     /**
+     * GET 实体类参数
+     * @return
+     */
+    @ApiOperation(value = "demo4(GET 实体类参数)",notes="若至，到底至没至")
+    @GetMapping("/demo4")
+    public BaseResult<FindInfoResVO> findInfo(@ModelAttribute FindInfoReqVO findInfoReqVO){
+
+        log.info("===============findInfoReqVO={}",findInfoReqVO);
+        return new BaseResult(FindInfoResVO.builder()
+                .id(0L)
+                .name(findInfoReqVO.getName())
+                .age(findInfoReqVO.getAge())
+                .build());
+    }
+
+    /**
      * POST form file
      * @param file
      * @return
      */
-    @ApiOperation(value = "demo4(POST 表单)", notes = "文件上传")
-    @PostMapping("/demo4")
+    @ApiOperation(value = "demo5(POST 表单)", notes = "文件上传")
+    @PostMapping("/demo5")
     public BaseResult<String> uploadFile(@ApiParam(name = "name",value = "名称",required = true) @RequestParam(value = "name")String name,
                                          @ApiParam(name = "myfile",value = "文件对象",required = true) @RequestParam(name = "myfile") MultipartFile file) {
 
