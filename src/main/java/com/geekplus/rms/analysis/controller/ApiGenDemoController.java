@@ -24,7 +24,7 @@ import com.geekplus.rms.analysis.base.BaseResult;
 @RequestMapping("/apiDemo")
 @Slf4j
 @Api(value = "apiDemo", tags = "apiGenDemo")
-public class HelloController {
+public class ApiGenDemoController {
 
     @Autowired
     private CommandService commandService;
