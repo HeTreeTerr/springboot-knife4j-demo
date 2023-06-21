@@ -3,12 +3,15 @@ package com.geekplus.rms.analysis.controller;
 import com.geekplus.rms.analysis.service.CommandService;
 import com.geekplus.rms.analysis.vo.FindInfoReqVO;
 import com.geekplus.rms.analysis.vo.FindInfoResVO;
+import com.geekplus.rms.analysis.vo.UpdateStatusReqVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,15 +84,40 @@ public class HelloController {
     }
 
     /**
-     * POST form file
+     * POST 表单-多参
      * @param file
      * @return
      */
-    @ApiOperation(value = "demo5(POST 表单)", notes = "文件上传")
-    @PostMapping("/demo5")
+    @ApiOperation(value = "demo5(POST 表单-多参)", notes = "文件上传")
+    @PostMapping(value = "/demo5",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public BaseResult<String> uploadFile(@ApiParam(name = "name",value = "名称",required = true) @RequestParam(value = "name")String name,
                                          @ApiParam(name = "myfile",value = "文件对象",required = true) @RequestParam(name = "myfile") MultipartFile file) {
 
         return new BaseResult("上传成功:" + file.getOriginalFilename() + "--" + name);
+    }
+
+    /**
+     * POST 表单-实体参数
+     * @return
+     */
+    @ApiOperation(value = "demo6(POST 表单-实体参数)", notes = "状态修改")
+    @PostMapping(value = "/demo6",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public BaseResult<Object> updateStatus(@ModelAttribute UpdateStatusReqVO updateStatusReqVO){
+
+        log.info("===============updateStatusReqVO={}",updateStatusReqVO);
+        return new BaseResult<>().success("操作成功！");
+    }
+
+    /**
+     * POST json
+     * @param updateStatusReqVO
+     * @return
+     */
+    @ApiOperation(value = "demo7(POST json)", notes = "状态修改")
+    @PostMapping("/demo7")
+    public BaseResult<Object> editInfo(@RequestBody UpdateStatusReqVO updateStatusReqVO){
+
+        log.info("===============updateStatusReqVO={}",updateStatusReqVO);
+        return new BaseResult<>().success("操作成功！");
     }
 }
